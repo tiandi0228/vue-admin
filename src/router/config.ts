@@ -45,6 +45,14 @@ export const constantRoutes: RouteRecordRaw[] = [
 				}
 			},
 			{
+				path: '/table',
+				name: "table",
+				component: () => import("@/views/table/index.vue"),
+				meta: {
+					title: "表格",
+				}
+			},
+			{
 				path: "/settings",
 				name: "settings",
 				component: () => import("@/views/settings/index.vue"),

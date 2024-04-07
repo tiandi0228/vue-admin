@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import {HomeFilled, PieChart, Setting, VideoCameraFilled} from "@element-plus/icons-vue";
+import {HomeFilled, PieChart, ScaleToOriginal, Setting, VideoCameraFilled} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 import {MenuState} from "@/store/interface";
 import {onMounted, ref, shallowRef, watch} from "vue";
@@ -58,6 +58,11 @@ const menus = shallowRef<MenuState[]>([
         title: "视频",
         path: "/video",
         icon: VideoCameraFilled,
+    },
+    {
+        title: "表格",
+        path: "/table",
+        icon: ScaleToOriginal,
     },
     {
         title: "设置",
