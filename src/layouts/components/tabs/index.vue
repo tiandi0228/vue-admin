@@ -1,46 +1,65 @@
 <template>
-    <el-tabs v-model="activeName" type="card" closable @tab-click="handlePath" @tab-remove="removeTab">
-        <el-tab-pane v-for="item in tabs" :key="item.path" :label="item.title" :name="item.path" />
+    <el-tabs
+        v-model="activeName"
+        closable
+        type="card"
+        @tab-click="handlePath"
+        @tab-remove="removeTab"
+    >
+        <el-tab-pane
+            v-for="item in tabsStore.tabs"
+            :key="item.id"
+            :label="item.title"
+            :name="item.path"
+        />
     </el-tabs>
 </template>
 
-<script setup lang="ts">
-import { useRouter } from "vue-router";
-import { TabsPaneContext } from 'element-plus';
-import { ref, watch } from 'vue';
+<script lang="ts" setup>
+import {RouteLocationNormalizedLoaded, useRouter} from "vue-router";
+import {TabsPaneContext} from "element-plus";
+import {onMounted, ref, watch} from "vue";
+import {useTabsStore} from "@/store/modules/tab";
 
 const router = useRouter();
+const tabsStore = useTabsStore();
 
-const tabs = ref([
-    {
-        title: '首页',
-        path: '/home'
-    },
-    {
-        title: '设置',
-        path: '/settings'
-    },
-])
-const activeName = ref(router.currentRoute.value.path)
+const activeName = ref(router.currentRoute.value.path);
+
+function init() {
+    tabsStore.getCacheTabs()
+}
+
+init();
 
 // 监听路由变化
 watch(
     () => router.currentRoute.value.path,
     (path) => {
-        activeName.value = path
-    })
+        tabsStore.addTab(
+            router.currentRoute.value as unknown as RouteLocationNormalizedLoaded
+        );
+        activeName.value = path;
+    }
+);
+
+onMounted(() => {
+    // 刷新页面弹窗
+    window.addEventListener('beforeunload', (evt) => {
+        evt.preventDefault();
+        tabsStore.setCacheTabs();
+    });
+    tabsStore.initHomeTab()
+})
 
 // 切换tab
-const handlePath = ({ paneName }: TabsPaneContext) => {
-    console.log(paneName)
-    if (!paneName) return
-    router.push(paneName.toString())
-}
+const handlePath = ({paneName}: TabsPaneContext) => {
+    if (!paneName) return;
+    router.push(paneName.toString());
+};
 
 // 关闭tab
-const removeTab = (targetName: string) => {
-    if (targetName === '/home') return
-    tabs.value = tabs.value.filter(item => item.path !== targetName)
-    router.push(tabs.value[tabs.value.length - 1].path)
-}
+const removeTab = (id: string) => {
+    tabsStore.removeTab(id);
+};
 </script>

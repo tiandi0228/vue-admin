@@ -9,8 +9,7 @@ const persist: PersistedStateOptions = {
   paths: ["token", "userInfo"],
 };
 
-export const useUserStore = defineStore({
-  id: "user",
+export const useUserStore = defineStore("user", {
   state: (): UserState => ({
     token: "",
     userInfo: { username: "admin", avatar: "" },
