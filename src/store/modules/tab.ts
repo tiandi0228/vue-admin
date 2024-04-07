@@ -46,16 +46,19 @@ export const useTabsStore = defineStore("tabs", () => {
 		}
 
 		if (tab.id) {
-			activeId.value = tab.id;
+			localStorage.setItem('active-id', tab.id)
+			activeId.value = tab.id
 		}
 	}
 
 	// 移除tab
 	async function removeTab(id: string): Promise<void> {
-		const isCurrentTabId = id === activeId.value;
+		const aId: string = activeId.value || localStorage.getItem('active-id') as string
+		const isCurrentTabId = id === aId;
 		if (!isCurrentTabId) return;
 		if (homeTab.value?.id === id) return;
 		tabs.value = tabs.value.filter(item => item.id !== id);
+		setCacheTabs()
 		await router.push(tabs.value[tabs.value.length - 1].path);
 	}
 
@@ -64,7 +67,7 @@ export const useTabsStore = defineStore("tabs", () => {
 		localStorage.setItem('tabs', JSON.stringify(tabs.value));
 	}
 
-	//
+	// 获取在localStorage中的tabs
 	function getCacheTabs() {
 		const storageTabs = localStorage.getItem('tabs') as string
 		tabs.value = JSON.parse(storageTabs);
