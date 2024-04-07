@@ -1,7 +1,7 @@
 <template>
     <div
         :style="{ width: !expand ? '300px' : '60px' }"
-        class="h-full bg-[#545c64] shadow-lg"
+        class="h-full bg-[#545c64] shadow-lg overflow-x-hidden"
     >
         <div class="flex items-center p-4">
             <el-image
@@ -12,14 +12,15 @@
         </div>
         <el-menu
             :collapse="expand"
-            active-text-color="#ffd04b"
+            :default-active="active"
+            :router="true"
+            active-text-color="#fff"
             class="h-full"
-            default-active="1"
             text-color="#fff"
             @select="handleSelect"
         >
             <el-menu-item v-for="item in menus" :key="item.path" :index="item.path">
-                <el-icon>
+                <el-icon size="20">
                     <component :is="item.icon"/>
                 </el-icon>
                 <template #title> {{ item.title }}</template>
@@ -29,10 +30,10 @@
 </template>
 
 <script lang="ts" setup>
-import {HomeFilled, PieChart, Setting} from "@element-plus/icons-vue";
+import {HomeFilled, PieChart, Setting, VideoCameraFilled} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 import {MenuState} from "@/store/interface";
-import {shallowRef} from "vue";
+import {onMounted, ref, shallowRef, watch} from "vue";
 
 defineProps({
     expand: {
@@ -54,11 +55,29 @@ const menus = shallowRef<MenuState[]>([
         icon: PieChart,
     },
     {
+        title: "视频",
+        path: "/video",
+        icon: VideoCameraFilled,
+    },
+    {
         title: "设置",
         path: "/settings",
         icon: Setting,
     },
 ]);
+const active = ref('/home')
+
+// 监听路由变化
+watch(
+    () => router.currentRoute.value.path,
+    (path) => {
+        active.value = path;
+    }
+);
+
+onMounted(() => {
+    active.value = router.currentRoute.value.path;
+})
 
 const handleSelect = (key: string) => {
     router.push(key);

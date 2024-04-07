@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 .el-menu {
-  border: none !important;
+    width: auto !important;
+    border: none !important;
+    background-color: transparent !important;
 }
 
-.el-menu {
-  background-color: transparent !important;
+.el-menu-item.is-active {
+    background-color: #457DEB;
 }

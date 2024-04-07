@@ -37,6 +37,14 @@ export const constantRoutes: RouteRecordRaw[] = [
 				}
 			},
 			{
+				path: '/video',
+				name: "video",
+				component: () => import("@/views/video/index.vue"),
+				meta: {
+					title: "视频",
+				}
+			},
+			{
 				path: "/settings",
 				name: "settings",
 				component: () => import("@/views/settings/index.vue"),
