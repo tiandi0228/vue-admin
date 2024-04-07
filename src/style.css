@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --i: 0
+}
+
 .el-menu {
     width: auto !important;
     border: none !important;
