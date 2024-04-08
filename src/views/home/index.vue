@@ -14,7 +14,7 @@
                     <span class="flex items-center text-green-600 pl-1">
                         24%
                         <el-icon>
-                            <CaretTop />
+                            <CaretTop/>
                         </el-icon>
                     </span>
                 </div>
@@ -34,7 +34,7 @@
                     <span class="text-red-600">
                         12%
                         <el-icon>
-                            <CaretBottom />
+                            <CaretBottom/>
                         </el-icon>
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                     <span class="flex items-center text-green-600 pl-1">
                         16%
                         <el-icon>
-                            <CaretTop />
+                            <CaretTop/>
                         </el-icon>
                     </span>
                 </div>
@@ -63,29 +63,26 @@
     </el-row>
     <div class="border rounded-md shadow-sm mt-4">
         <div class="border-b p-4">趋势</div>
-        <div class="w-full mt-4 p-4" id="container"></div>
+        <div id="container" class="w-full mt-4 p-4"></div>
     </div>
 </template>
 
-<script setup lang="ts" name="home">
-import {
-    CaretBottom,
-    CaretTop,
-} from '@element-plus/icons-vue'
-import { Chart } from '@antv/g2'
-import { onMounted } from 'vue';
+<script lang="ts" name="home" setup>
+import {CaretBottom, CaretTop,} from '@element-plus/icons-vue'
+import {Chart} from '@antv/g2'
+import {onMounted} from 'vue';
 
 
 const data = [
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
+    {year: '1991', value: 3},
+    {year: '1992', value: 4},
+    {year: '1993', value: 3.5},
+    {year: '1994', value: 5},
+    {year: '1995', value: 4.9},
+    {year: '1996', value: 6},
+    {year: '1997', value: 7},
+    {year: '1998', value: 9},
+    {year: '1999', value: 13},
 ];
 
 onMounted(() => {
@@ -99,6 +96,12 @@ onMounted(() => {
         .data(data)
         .encode('x', 'year')
         .encode('y', 'value')
+        .axis('y', {
+            title: false,
+        })
+        .axis('x', {
+            title: false,
+        })
         .scale('x', {
             range: [0, 1],
         })
@@ -119,7 +122,6 @@ onMounted(() => {
 
     chart.render();
 });
-
 
 
 </script>

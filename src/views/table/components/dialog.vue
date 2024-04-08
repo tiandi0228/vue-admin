@@ -31,7 +31,7 @@ import {defineModel, defineProps, reactive, ref, watch} from "vue";
 import {FormInstance, FormRules} from "element-plus";
 import {User} from "@/views/table/interface";
 
-const model = defineModel({required: true})
+const model = defineModel<User>({required: true})
 
 const props = defineProps({
     dialogFormVisible: {

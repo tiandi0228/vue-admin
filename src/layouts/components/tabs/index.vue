@@ -45,7 +45,7 @@ watch(
 
 onMounted(() => {
     // 刷新页面弹窗
-    window.addEventListener('beforeunload', (evt) => {
+    window.addEventListener('beforeunload', (_evt) => {
         // evt.preventDefault();
         tabsStore.setCacheTabs();
     });
