@@ -46,7 +46,7 @@ watch(
 onMounted(() => {
     // 刷新页面弹窗
     window.addEventListener('beforeunload', (evt) => {
-        evt.preventDefault();
+        // evt.preventDefault();
         tabsStore.setCacheTabs();
     });
     tabsStore.initHomeTab()

@@ -12,10 +12,8 @@
             @selection-change="handleSelectionChange"
         >
             <el-table-column type="selection" width="40"/>
-            <el-table-column label="序号" sortable type="index" width="80"/>
-            <el-table-column label="日期" width="120">
-                <template #default="scope">{{ scope.row.date }}</template>
-            </el-table-column>
+            <el-table-column label="序号" type="index" width="90"/>
+            <el-table-column label="日期" property="date" sortable width="120"/>
             <el-table-column label="姓名" property="name" width="120"/>
             <el-table-column label="地址" property="address" show-overflow-tooltip/>
             <el-table-column align="center" label="操作" width="180">
@@ -46,75 +44,27 @@
                 @current-change="handleCurrentChange"
             />
         </div>
-        <el-dialog v-model="dialogFormVisible" title="编辑" width="500">
-            <el-form ref="ruleFormRef" :model="form" :rules="rules">
-                <el-form-item :label-width="140" label="姓名" prop="name">
-                    <el-input v-model="form.name"/>
-                </el-form-item>
-                <el-form-item :label-width="140" label="日期" prop="date">
-                    <el-date-picker
-                        v-model="form.date"
-                        placeholder="请选择日期"
-                        style="width: 100%"
-                        type="date"
-                    />
-                </el-form-item>
-                <el-form-item :label-width="140" label="地址" prop="address">
-                    <el-input v-model="form.address"/>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <div class="dialog-footer">
-                    <el-button type="primary" @click="submitForm(ruleFormRef)">
-                        保存
-                    </el-button>
-                </div>
-            </template>
-        </el-dialog>
+        <Dialog v-model="form" :dialogFormVisible="dialogFormVisible" @on-changed="dialogFormVisible = false"/>
     </div>
 </template>
 
 <script lang="ts" name="table" setup>
-import {ElMessage, ElMessageBox, ElTable, FormInstance, FormRules} from 'element-plus'
+import {ElMessage, ElMessageBox, ElTable} from 'element-plus'
 import 'element-plus/es/components/table/style/css'
 import 'element-plus/es/components/message-box/style/css'
 import {reactive, ref} from 'vue'
+import {User} from "@/views/table/interface";
+import Dialog from "@/views/table/components/dialog.vue";
 
-interface User {
-    date: string
-    name: string
-    address: string
-}
 
 const multipleSelection = ref<User[]>([])
 const currentPage = ref(1)
 const pageSize = ref(20)
-
-const ruleFormRef = ref<FormInstance>()
 const dialogFormVisible = ref(false)
-
 let form = reactive({
     name: '',
     address: '',
     date: '',
-})
-
-const rules = reactive<FormRules<User>>({
-    name: [
-        {required: true, message: '请输入姓名', trigger: 'blur'},
-        {min: 1, max: 5, message: '长度在3和5之间', trigger: 'blur'},
-    ],
-    date: [
-        {
-            type: 'date',
-            required: true,
-            message: '请选择时间',
-            trigger: 'change',
-        },
-    ],
-    address: [
-        {required: true, message: '请输入地址', trigger: 'blur'},
-    ],
 })
 
 const tableData = ref<User[]>([
@@ -194,19 +144,6 @@ const handleDelete = (index: number, row: User) => {
         })
     });
 
-}
-
-// 保存
-const submitForm = async (formEl: FormInstance | undefined) => {
-    if (!formEl) return
-    await formEl.validate((valid, fields) => {
-        if (valid) {
-            console.log('submit!')
-            dialogFormVisible.value = false
-        } else {
-            console.log('error submit!', fields)
-        }
-    })
 }
 
 // 删除所选数据
