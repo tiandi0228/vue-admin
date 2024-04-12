@@ -1,25 +1,28 @@
 <script lang="ts" name="video" setup>
 import {ref} from 'vue'
 
+interface VideoState {
+    url: string
+}
+
 const img = ref<string[]>([])
 const selIndex = ref<number>(0)
 
 const onchange = async (e: any) => {
     const file = e.target?.files[0]
     for (let i = 0; i < 10; i++) {
-        const res = await captureFrame(file, i * 1)
+        const res: VideoState = await captureFrame(file, i)
         if (!res) return
         img.value.push(res?.url)
     }
-
 }
 
 const onChangeIndex = (index: number) => {
     selIndex.value = index
 }
 
-function captureFrame(videoFile: any, time = 0) {
-    if (!videoFile) return
+function captureFrame(videoFile: any, time = 0): Promise<VideoState> {
+    if (!videoFile) return videoFile
     return new Promise((resolve) => {
         const vdo = document.createElement('video');
         vdo.currentTime = time;
@@ -36,10 +39,10 @@ function captureFrame(videoFile: any, time = 0) {
             cvs.toBlob((blob) => {
                 if (!blob) return
                 const url = URL.createObjectURL(blob);
-                resolve({
-                    blob,
+                const data: VideoState = {
                     url
-                });
+                }
+                resolve(data);
             });
         }
     })
@@ -47,7 +50,7 @@ function captureFrame(videoFile: any, time = 0) {
 </script>
 
 <template>
-    <div>
+    <div class="bg-white s-shadow p-4 rounded-sm">
         <p>请先上传一个MP4格式的视频</p>
         <input id="ip" accept=".mp4" type="file" @change="onchange"/>
         <div v-show="img.length" class="mt-2 flex justify-center">
