@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-white s-shadow p-4 rounded-sm">
         <div id="container"></div>
     </div>
 </template>
@@ -46,6 +46,7 @@ onMounted(() => {
 
     chart
         .interval()
+        .style('fill', '#0fc6c2')
         .data(data)
         .encode('x', 'letter')
         .encode('y', 'frequency')
@@ -55,7 +56,7 @@ onMounted(() => {
         .axis('x', {
             title: false,
         });
-    
+
     chart.render();
 })
 </script>

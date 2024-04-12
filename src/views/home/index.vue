@@ -1,10 +1,10 @@
 <template>
     <el-row :gutter="16">
         <el-col :span="8">
-            <div class="border p-4 rounded-md shadow-sm">
+            <div class="border p-4 rounded-md s-shadow bg-white">
                 <el-statistic :value="98500">
                     <template #title>
-                        <div class="pb-3">
+                        <div class="pb-3 text-base text-gray-400">
                             总销量
                         </div>
                     </template>
@@ -21,10 +21,10 @@
             </div>
         </el-col>
         <el-col :span="8">
-            <div class="border p-4 rounded-md shadow-sm">
+            <div class="border p-4 rounded-md s-shadow bg-white">
                 <el-statistic :value="693700">
                     <template #title>
-                        <div class="pb-3">
+                        <div class="pb-3 text-base text-gray-400">
                             活跃用户
                         </div>
                     </template>
@@ -41,15 +41,15 @@
             </div>
         </el-col>
         <el-col :span="8">
-            <div class="border p-4 rounded-md shadow-sm">
+            <div class="border p-4 rounded-md s-shadow bg-white">
                 <el-statistic :value="72000">
                     <template #title>
-                        <div class="pb-3">
+                        <div class="pb-3 text-base text-gray-400">
                             总成交
                         </div>
                     </template>
                 </el-statistic>
-                <div class="flex items-center pt-3  text-sm">
+                <div class="flex items-center pt-3 text-sm">
                     <span>相比上月</span>
                     <span class="flex items-center text-green-600 pl-1">
                         16%
@@ -61,8 +61,8 @@
             </div>
         </el-col>
     </el-row>
-    <div class="border rounded-md shadow-sm mt-4">
-        <div class="border-b p-4">趋势</div>
+    <div class="border rounded-md s-shadow mt-4 bg-white">
+        <div class="p-4 text-base">趋势</div>
         <div id="container" class="w-full mt-4 p-4"></div>
     </div>
 </template>
@@ -94,6 +94,7 @@ onMounted(() => {
 
     chart
         .data(data)
+        .style('fill', '#0fc6c2')
         .encode('x', 'year')
         .encode('y', 'value')
         .axis('y', {
@@ -110,13 +111,16 @@ onMounted(() => {
             nice: true,
         });
 
-    chart.line().label({
-        text: 'value',
-        style: {
-            dx: -10,
-            dy: -12,
-        },
-    });
+    chart
+        .line()
+        .style('stroke', '#0fc6c2')
+        .label({
+            text: 'value',
+            style: {
+                dx: -10,
+                dy: -12,
+            },
+        });
 
     chart.point().style('fill', 'white').tooltip(false);
 

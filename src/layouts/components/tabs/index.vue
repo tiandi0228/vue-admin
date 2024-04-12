@@ -1,18 +1,20 @@
 <template>
-    <el-tabs
-        v-model="activeName"
-        closable
-        type="card"
-        @tab-click="handlePath"
-        @tab-remove="removeTab"
-    >
-        <el-tab-pane
-            v-for="item in tabsStore.tabs"
-            :key="item.id"
-            :label="item.title"
-            :name="item.path"
-        />
-    </el-tabs>
+    <div class="px-6">
+        <el-tabs
+            v-model="activeName"
+            closable
+            type="card"
+            @tab-click="handlePath"
+            @tab-remove="removeTab"
+        >
+            <el-tab-pane
+                v-for="item in tabsStore.tabs"
+                :key="item.id"
+                :label="item.title"
+                :name="item.path"
+            />
+        </el-tabs>
+    </div>
 </template>
 
 <script lang="ts" setup>

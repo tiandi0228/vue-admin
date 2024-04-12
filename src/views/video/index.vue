@@ -50,7 +50,7 @@ function captureFrame(videoFile: any, time = 0): Promise<VideoState> {
 </script>
 
 <template>
-    <div>
+    <div class="bg-white s-shadow p-4 rounded-sm">
         <p>请先上传一个MP4格式的视频</p>
         <input id="ip" accept=".mp4" type="file" @change="onchange"/>
         <div v-show="img.length" class="mt-2 flex justify-center">

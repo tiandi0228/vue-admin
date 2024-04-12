@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-white s-shadow p-4 rounded-sm">
         <div class="mb-2">
             <el-button @click="handleAddCell">增加一行</el-button>
             <el-button type="danger" @click="handleDeleteCell">删除</el-button>
@@ -8,7 +8,6 @@
             ref="multipleTableRef"
             :data="tableData"
             border
-            stripe
             @selection-change="handleSelectionChange"
         >
             <el-table-column type="selection" width="40"/>
@@ -18,12 +17,14 @@
             <el-table-column label="地址" property="address" show-overflow-tooltip/>
             <el-table-column align="center" label="操作" width="180">
                 <template #default="scope">
-                    <el-button size="small" @click="handleEdit(scope.row)"
+                    <el-button
+                        text
+                        @click="handleEdit(scope.row)"
                     >编辑
                     </el-button
                     >
                     <el-button
-                        size="small"
+                        text
                         type="danger"
                         @click="handleDelete(scope.$index, scope.row)"
                     >删除
