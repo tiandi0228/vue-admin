@@ -1,6 +1,6 @@
 <template>
     <div
-        class="aside-bg w-60 h-full px-4 select-none"
+        class="s-aside h-full px-4 select-none"
     >
         <div class="flex items-center p-4">
             <el-image

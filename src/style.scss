@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --i: 0;
+}
+
+$side-width: 250px;
+
+/*背景色*/
+$background-color: #f7f8fa;
+$background-color-hover: #0fc6c2;
+$tab-background-color: #ffffff;
+$background-color-error: #ff4d4f;
+$background-color-red-hover: fade($background-color-error, 20%);
+
+/*阴影*/
+$box-shadow: fade($background-color-hover, 20%);
+
+/*文字*/
+$text-color: #000000b3;
+$text-color-hover: #ffffff;
+$text-color-active: #ffffff;
+$text-color-error: #ff4d4f;
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+.s-aside {
+  float: left;
+  width: $side-width;
+  background-color: $background-color;
+}
+
+.s-container {
+  float: left;
+  width: calc(100vw - $side-width);
+}
+
+.s-shadow {
+  box-shadow: #919eab33 0 4px 10px;
+}
+
+.el-menu {
+  width: auto !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.el-menu-item {
+  height: 50px !important;
+  border-radius: 4px !important;
+}
+
+.el-menu-item:hover {
+  background-color: $box-shadow !important;
+}
+
+.el-tabs__header {
+  border: none !important;
+}
+
+.el-tabs__nav {
+  border: none !important;
+}
+
+.el-tabs__item {
+  background-color: $tab-background-color !important;
+  border: none !important;
+}
+
+.el-tabs__item:hover {
+  color: $background-color-hover !important;
+}
+
+.is-active {
+  background-color: $background-color-hover !important;
+  color: $text-color-hover !important;
+}
+
+.el-menu-item.is-active {
+  box-shadow: $box-shadow 0 10px 25px 0;
+}
+
+.el-tabs__item:hover.is-active {
+  color: $tab-background-color !important;
+}
+
+.el-sub-menu .el-sub-menu__title {
+  color: $text-color !important;
+}
+
+.el-sub-menu.is-opened.is-active .el-sub-menu__title {
+  color: $text-color-active !important;
+}
+
+.el-sub-menu .el-menu-item {
+  background-color: $background-color !important;
+  color: $text-color !important;
+  border-radius: 0 !important
+}
+
+.el-menu-item.is-active {
+  box-shadow: none !important;
+}
+
+.el-button.is-text {
+  color: $background-color-hover !important;
+}
+
+.el-button.is-text:hover {
+  background-color: $box-shadow !important;
+}
+
+.el-button--danger.is-text {
+  color: $text-color-error !important;
+}
+
+.el-button--danger.is-text:hover {
+  background-color: $background-color-red-hover !important;
+}
+
+.dot-active {
+  background-color: $background-color-hover;
+}

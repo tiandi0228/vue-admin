@@ -63,7 +63,7 @@
     </el-row>
     <div class="border rounded-md s-shadow mt-4 bg-white">
         <div class="p-4 text-base">趋势</div>
-        <div id="container" class="w-full mt-4 p-4"></div>
+        <div id="container" class="w-full mt-4"></div>
     </div>
 </template>
 
@@ -71,7 +71,6 @@
 import {CaretBottom, CaretTop,} from '@element-plus/icons-vue'
 import {Chart} from '@antv/g2'
 import {onMounted} from 'vue';
-
 
 const data = [
     {year: '1991', value: 3},
@@ -86,10 +85,13 @@ const data = [
 ];
 
 onMounted(() => {
+    getChart(true);
+});
 
+const getChart = (init: boolean = false) => {
     const chart = new Chart({
         container: 'container',
-        autoFit: true,
+        autoFit: true
     });
 
     chart
@@ -125,7 +127,6 @@ onMounted(() => {
     chart.point().style('fill', 'white').tooltip(false);
 
     chart.render();
-});
-
+}
 
 </script>

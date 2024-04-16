@@ -1,7 +1,7 @@
 <template>
-    <div class="h-screen flex">
+    <div class="h-screen">
         <side-menu/>
-        <div class="flex-1">
+        <div class="s-container">
             <Header/>
             <Tabs/>
             <div class="px-6 pb-4">
