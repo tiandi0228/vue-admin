@@ -5,8 +5,14 @@
 </template>
 
 <script lang="ts" name="large-screen" setup>
-import {Chart} from "@antv/g2";
 import {onMounted} from "vue";
+
+import {useWindowSize} from '@/hooks'
+import {Chart} from "@antv/g2";
+
+const {width, sideWidth} = useWindowSize()
+
+let chart: Chart = null as any
 
 const data = [
     {letter: "A", frequency: 0.08167},
@@ -37,12 +43,22 @@ const data = [
     {letter: "Z", frequency: 0.00074},
 ]
 
+window.addEventListener('resize', () => {
+    setTimeout(() => {
+        getChart();
+    }, 100)
+})
+
 onMounted(() => {
-    const chart = new Chart({
+    getChart(true);
+})
+
+const getChart = (init: boolean = false) => {
+    chart = new Chart({
         container: 'container',
         autoFit: true,
+        width: init ? 0 : width.value - (sideWidth.value + 90),
     });
-
 
     chart
         .interval()
@@ -58,6 +74,6 @@ onMounted(() => {
         });
 
     chart.render();
-})
+}
 </script>
 
